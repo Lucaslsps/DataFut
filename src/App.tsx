@@ -4,7 +4,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 // Helper function to calculate total goals and assists
 const calculateTotals = (players: any[]) => {
-  return players.map((player: { name: string, matches: any[]; }) => ({
+  return players.map((player: { matches: any[]; }) => ({
     ...player,
     totalG: player.matches.reduce((sum: any, match: { g: string; }) => sum + (match.g !== '-' ? match.g : 0), 0),
     totalA: player.matches.reduce((sum: any, match: { a: string; }) => sum + (match.a !== '-' ? match.a : 0), 0),
@@ -12,14 +12,16 @@ const calculateTotals = (players: any[]) => {
 };
 
 const getTop3 = (players: any, field: string) => {
-  return [...players]
-    .sort((a, b) => b[field] - a[field])
-    .slice(0, 3);
+  return [...players].sort((a, b) => b[field] - a[field]).slice(0, 3);
 };
 
+  // Function to check if player is in top 3 of goals or assists
+  const isTop3 = (player: { name: any; }, field: string, top3List: any[]) => {
+    return top3List.some((topPlayer: { name: any; }) => topPlayer.name === player.name);
+  };
+
 function App() {
-  const rawPlayersData = [
-    { name: 'Xande', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 0 }, { g: 0, a: 0 }] },
+  const rawPlayersData = [     { name: 'Xande', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 0 }, { g: 0, a: 0 }] },
     { name: 'Bersi', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 0 }] },
     { name: 'Daniboy', matches: [{ g: 2, a: 1 }, { g: 1, a: 1 }, { g: 1, a: 0 }, { g: 2, a: 1 }] },
     { name: 'Denes', matches: [{ g: 1, a: 1 }, { g: 1, a: 1 }, { g: 3, a: 1 }, { g: 1, a: 1 }] },
@@ -46,23 +48,13 @@ function App() {
     { name: 'Jonas (Pxt)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: '-', a: '-' }] },
     { name: 'Guilherme (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }] },
     { name: 'Douglas (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }] },
-    { name: 'Berpai', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: '-', a: '-' }] }
-  ];
+    { name: 'Berpai', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: '-', a: '-' }] } ];
 
-  // Calculate total goals and assists for each player
   const playersData = calculateTotals(rawPlayersData);
-
-  // Get the top 3 players for goals and assists
   const top3Goals = getTop3(playersData, 'totalG');
   const top3Assists = getTop3(playersData, 'totalA');
 
-  // Function to check if player is in top 3 of goals or assists
-  const isTop3 = (player: { name: any; }, field: string, top3List: any[]) => {
-    return top3List.some((topPlayer: { name: any; }) => topPlayer.name === player.name);
-  };
-
-  // Define columns for DataGrid
-  const columns: GridColDef[] = [
+  const columns: GridColDef [] = [     
     { field: 'name', headerName: 'Jogadores', flex: 1 },
     {
       field: 'totalG',
@@ -71,7 +63,7 @@ function App() {
       flex: 0.5,
       align: 'center', // This centers the content of the cell
       headerAlign: 'center', // This centers the header text
-      renderCell: (params) => (
+      renderCell: (params: any) => (
         <Box
           sx={{
             fontWeight: isTop3(params.row, 'totalG', top3Goals) ? 'bold' : 'normal',
@@ -86,7 +78,7 @@ function App() {
     },
     {
       field: 'totalA', headerName: 'Total A', type: 'number', flex: 0.5, align: 'center',
-      renderCell: (params) => (
+      renderCell: (params: any) => (
         <Box
           sx={{
             fontWeight: isTop3(params.row, 'totalA', top3Assists) ? 'bold' : 'normal',
@@ -105,11 +97,9 @@ function App() {
     { field: 'g3', headerName: '07/09 G', type: 'number', flex: 0.3 },
     { field: 'a3', headerName: '07/09 A', type: 'number', flex: 0.3 },
     { field: 'g4', headerName: '21/09 G', type: 'number', flex: 0.3 },
-    { field: 'a4', headerName: '21/09 A', type: 'number', flex: 0.3 },
-  ];
+    { field: 'a4', headerName: '21/09 A', type: 'number', flex: 0.3 }, ];
 
-  // Map the players data to fit DataGrid rows structure
-  const rows = playersData.map((player, id) => ({
+  const rows = playersData.map((player: any, id: any) => ({
     id,
     name: player.name,
     totalG: player.totalG,
@@ -125,26 +115,123 @@ function App() {
   }));
 
   return (
-    <Box sx={{ width: '100%', textAlign: 'center' }}>
-      {/* Summary Section */}
+    <Box sx={{ width: '100%', textAlign: 'center', p: 2 }}>
       <Typography variant="h4" gutterBottom>
         Data Fut - Deportivo BCC
       </Typography>
-      <Box>
-        <Typography variant="h6">Top 3 Artilheiros:</Typography>
-        {top3Goals.map((player, index) => (
-          <Typography key={index}>{index + 1}. {player.name} - {player.totalG} Gols</Typography>
-        ))}
-      </Box>
-      <Box mt={2}>
-        <Typography variant="h6">Top 3 Garçons:</Typography>
-        {top3Assists.map((player, index) => (
-          <Typography key={index}>{index + 1}. {player.name} - {player.totalA} Assistências</Typography>
-        ))}
+      <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} justifyContent="space-around" mt={4}>
+        
+        {/* Top 3 Artilheiros Podium */}
+        <Box>
+          <Typography variant="h6" align="center">Top 3 Artilheiros:</Typography>
+          <Box display="flex" justifyContent="center" alignItems="flex-end" mt={2}>
+            {/* 2nd place */}
+            <Box
+              width={{ xs: '80%', sm: 100 }}
+              height={150}
+              bgcolor="silver"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                2. {top3Goals[1].name}<br />{top3Goals[1].totalG} Gols
+              </Typography>
+            </Box>
+
+            {/* 1st place */}
+            <Box
+              width={{ xs: '80%', sm: 120 }}
+              height={200}
+              bgcolor="gold"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                1. {top3Goals[0].name}<br />{top3Goals[0].totalG} Gols
+              </Typography>
+            </Box>
+
+            {/* 3rd place */}
+            <Box
+              width={{ xs: '80%', sm: 100 }}
+              height={120}
+              bgcolor="#cd7f32"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                3. {top3Goals[2].name}<br />{top3Goals[2].totalG} Gols
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Top 3 Garçons Podium */}
+        <Box>
+          <Typography variant="h6" align="center" mt={{ xs: 2, sm: 0 }}>Top 3 Garçons:</Typography>
+          <Box display="flex" justifyContent="center" alignItems="flex-end" mt={2}>
+            {/* 2nd place */}
+            <Box
+              width={{ xs: '80%', sm: 100 }}
+              height={150}
+              bgcolor="silver"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                2. {top3Assists[1].name}<br />{top3Assists[1].totalA} Assistências
+              </Typography>
+            </Box>
+
+            {/* 1st place */}
+            <Box
+              width={{ xs: '80%', sm: 120 }}
+              height={200}
+              bgcolor="gold"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                1. {top3Assists[0].name}<br />{top3Assists[0].totalA} Assistências
+              </Typography>
+            </Box>
+
+            {/* 3rd place */}
+            <Box
+              width={{ xs: '80%', sm: 100 }}
+              height={120}
+              bgcolor="#cd7f32"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+            >
+              <Typography variant="subtitle1" align="center">
+                3. {top3Assists[2].name}<br />{top3Assists[2].totalA} Assistências
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
       </Box>
 
       {/* Player Stats DataGrid */}
-      <Box sx={{ width: '70%', margin: '20px auto', height: '500px' }}>
+      <Box sx={{ width: { xs: '100%', sm: '70%' }, margin: '20px auto', height: '500px' }}>
         <DataGrid
           rows={rows}
           columns={columns}
