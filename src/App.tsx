@@ -55,7 +55,7 @@ function App() {
   const top3Assists = getTop3(playersData, 'totalA');
 
   const columns: GridColDef [] = [     
-    { field: 'name', headerName: 'Jogadores', flex: 1 },
+    { field: 'name', headerName: 'Jogadores', flex: 1, minWidth: 50 },
     {
       field: 'totalG',
       headerName: 'Total G',
@@ -137,7 +137,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                2. {top3Goals[1].name}<br />{top3Goals[1].totalG} Gols
+                2. {top3Goals[1].name} 🥈<br />{top3Goals[1].totalG} Gols
               </Typography>
             </Box>
 
@@ -153,7 +153,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                1. {top3Goals[0].name}<br />{top3Goals[0].totalG} Gols
+                1. {top3Goals[0].name} 🥇<br />{top3Goals[0].totalG} Gols
               </Typography>
             </Box>
 
@@ -169,7 +169,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                3. {top3Goals[2].name}<br />{top3Goals[2].totalG} Gols
+                3. {top3Goals[2].name} 🥉<br />{top3Goals[2].totalG} Gols
               </Typography>
             </Box>
           </Box>
@@ -191,7 +191,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                2. {top3Assists[1].name}<br />{top3Assists[1].totalA} Assistências
+                2. {top3Assists[1].name} 🥈<br />{top3Assists[1].totalA} Assistências
               </Typography>
             </Box>
 
@@ -207,7 +207,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                1. {top3Assists[0].name}<br />{top3Assists[0].totalA} Assistências
+                1. {top3Assists[0].name} 🥇<br />{top3Assists[0].totalA} Assistências
               </Typography>
             </Box>
 
@@ -223,7 +223,7 @@ function App() {
               mx={1}
             >
               <Typography variant="subtitle1" align="center">
-                3. {top3Assists[2].name}<br />{top3Assists[2].totalA} Assistências
+                3. {top3Assists[2].name} 🥉<br />{top3Assists[2].totalA} Assistências
               </Typography>
             </Box>
           </Box>
