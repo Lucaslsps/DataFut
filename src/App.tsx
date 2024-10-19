@@ -33,35 +33,35 @@ const getPlayerRank = (playerName: any, topPlayers: any[]) => {
 
 function App() {
   const rawPlayersData = [
-    { name: 'Xande', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 0 }, { g: 0, a: 0 }, {g: 0, a: 0}] },
-    { name: 'Bersi', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: 1, a: 1}] },
-    { name: 'Daniboy', matches: [{ g: 2, a: 1 }, { g: 1, a: 1 }, { g: 1, a: 0 }, { g: 2, a: 1 }, {g: 3, a: 1}] },
-    { name: 'Denes', matches: [{ g: 1, a: 1 }, { g: 1, a: 1 }, { g: 3, a: 1 }, { g: 1, a: 1 }, {g: 2, a: 0}] },
-    { name: 'Godoy', matches: [{ g: 1, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}] },
-    { name: 'Luan', matches: [{ g: 0, a: 1 }, { g: 0, a: 0 }, { g: 2, a: 2 }, { g: 2, a: 3 }, {g: 0, a: 2}] },
-    { name: 'Peace', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Kim', matches: [{ g: 1, a: 0 }, { g: 3, a: 0 }, { g: '-', a: '-' }, { g: 1, a: 0 }, {g: 3, a: 1}] },
-    { name: 'Mafes', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: 0, a: 0 }, {g: 0, a: 0}] },
-    { name: 'Mencalha', matches: [{ g: 5, a: 2 }, { g: 4, a: 3 }, { g: 3, a: 3 }, { g: 0, a: 3 }, {g: 2, a: 1}] },
-    { name: 'Prestes', matches: [{ g: 0, a: 1 }, { g: 1, a: 1 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Pedro', matches: [{ g: 1, a: 1 }, { g: 0, a: 0 }, { g: 2, a: 1 }, { g: 2, a: 2 }, {g: 2, a: 1}] },
-    { name: 'Siqueira', matches: [{ g: 0, a: 0 }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: 0, a: 1 }, {g: 0, a: 0}] },
-    { name: 'Diniz', matches: [{ g: 0, a: 0 }, { g: 4, a: 1 }, { g: 3, a: 3 }, { g: 1, a: 1 }, {g: '-', a: '-'}] },
-    { name: 'Rafael', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: 6, a: 2 }, {g: 4, a: 0}] },
-    { name: 'SAJ', matches: [{ g: 0, a: 0 }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Vinibala', matches: [{ g: 1, a: 0 }, { g: 0, a: 1 }, { g: 0, a: 1 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Vinigod', matches: [{ g: 2, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 2 }, { g: 0, a: 2 }, {g: '-', a: '-'}] },
-    { name: 'Hugo', matches: [{ g: 0, a: 0 }, { g: 0, a: 1 }, { g: 0, a: 0 }, { g: 0, a: 1 }, {g: 0, a: 0}] },
-    { name: 'Peixoto', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 1 }, { g: 1, a: 1 }, {g: 0, a: 0}] },
-    { name: 'Theodoro', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Danilo (Pxt)', matches: [{ g: 3, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 1 }, { g: '-', a: '-' }, {g: 1, a: 4}] },
-    { name: 'Daniel (Pxt)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}] },
-    { name: 'Jonas (Pxt)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: '-', a: '-'}] },
-    { name: 'Guilherme (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Douglas (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}] },
-    { name: 'Heitor (Mencalha)', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: 1, a: 1}] },
-    { name: 'Carol (Daniboy)', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: 0, a: 0}] },
-    { name: 'Berpai', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}] }
+    { name: 'Xande', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 0 }, { g: 0, a: 0 }, {g: 0, a: 0}, { g: 2, a: 0 }] },
+    { name: 'Bersi', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: 1, a: 1}, { g: 1, a: 0 }] },
+    { name: 'Daniboy', matches: [{ g: 2, a: 1 }, { g: 1, a: 1 }, { g: 1, a: 0 }, { g: 2, a: 1 }, {g: 3, a: 1}, { g: 2, a: 1 }] },
+    { name: 'Denes', matches: [{ g: 1, a: 1 }, { g: 1, a: 1 }, { g: 3, a: 1 }, { g: 1, a: 1 }, {g: 2, a: 0}, { g: 0, a: 0 }] },
+    { name: 'Godoy', matches: [{ g: 1, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Luan', matches: [{ g: 0, a: 1 }, { g: 0, a: 0 }, { g: 2, a: 2 }, { g: 2, a: 3 }, {g: 0, a: 2}, { g: 1, a: 1 }] },
+    { name: 'Peace', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Kim', matches: [{ g: 1, a: 0 }, { g: 3, a: 0 }, { g: '-', a: '-' }, { g: 1, a: 0 }, {g: 3, a: 1}, { g: 1, a: 1 }] },
+    { name: 'Mafes', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: 0, a: 0 }, {g: 0, a: 0}, { g: 0, a: 2 }] },
+    { name: 'Mencalha', matches: [{ g: 5, a: 2 }, { g: 4, a: 3 }, { g: 3, a: 3 }, { g: 0, a: 3 }, {g: 2, a: 1}, { g: 7, a: 3 }] },
+    { name: 'Prestes', matches: [{ g: 0, a: 1 }, { g: 1, a: 1 }, { g: 1, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: 1, a: 0 }] },
+    { name: 'Pedro', matches: [{ g: 1, a: 1 }, { g: 0, a: 0 }, { g: 2, a: 1 }, { g: 2, a: 2 }, {g: 2, a: 1}, { g: 1, a: 1 }] },
+    { name: 'Siqueira', matches: [{ g: 0, a: 0 }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: 0, a: 1 }, {g: 0, a: 0}, { g: 1, a: 0 }] },
+    { name: 'Diniz', matches: [{ g: 0, a: 0 }, { g: 4, a: 1 }, { g: 3, a: 3 }, { g: 1, a: 1 }, {g: '-', a: '-'}, { g: 3, a: 1 }] },
+    { name: 'Rafael', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: 6, a: 2 }, {g: 4, a: 0}, { g: 5, a: 4 }] },
+    { name: 'SAJ', matches: [{ g: 0, a: 0 }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Vinibala', matches: [{ g: 1, a: 0 }, { g: 0, a: 1 }, { g: 0, a: 1 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Vinigod', matches: [{ g: 2, a: 0 }, { g: 1, a: 0 }, { g: 0, a: 2 }, { g: 0, a: 2 }, {g: '-', a: '-'}, { g: 4, a: 1 }] },
+    { name: 'Hugo', matches: [{ g: 0, a: 0 }, { g: 0, a: 1 }, { g: 0, a: 0 }, { g: 0, a: 1 }, {g: 0, a: 0}, { g: 0, a: 0 }] },
+    { name: 'Peixoto', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 1 }, { g: 1, a: 1 }, {g: 0, a: 0}, { g: 1, a: 0 }] },
+    { name: 'Theodoro', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Danilo (Pxt)', matches: [{ g: 3, a: 0 }, { g: 0, a: 0 }, { g: 2, a: 1 }, { g: '-', a: '-' }, {g: 1, a: 4}, { g: 4, a: 2 }] },
+    { name: 'Daniel (Pxt)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 1, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Jonas (Pxt)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Guilherme (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Douglas (Mencalha)', matches: [{ g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, { g: 0, a: 0 }, {g: '-', a: '-'}, { g: '-', a: '-' }] },
+    { name: 'Heitor (Mencalha)', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: 1, a: 1}, { g: '-', a: '-' }] },
+    { name: 'Carol (Daniboy)', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, { g: '-', a: '-' }, {g: 0, a: 0}, { g: 0, a: 1 }] },
+    { name: 'Berpai', matches: [{ g: '-', a: '-' }, { g: '-', a: '-' }, { g: 1, a: 0 }, { g: '-', a: '-' }, {g: '-', a: '-'}, { g: '-', a: '-' }] }
   ];
 
   const playersData = calculateTotals(rawPlayersData);
@@ -121,7 +121,11 @@ function App() {
     { field: 'g3', headerName: '07/09 G', type: 'number', flex: 0.3 },
     { field: 'a3', headerName: '07/09 A', type: 'number', flex: 0.3 },
     { field: 'g4', headerName: '21/09 G', type: 'number', flex: 0.3 },
-    { field: 'a4', headerName: '21/09 A', type: 'number', flex: 0.3 },];
+    { field: 'a4', headerName: '21/09 A', type: 'number', flex: 0.3 },
+    { field: 'g5', headerName: '05/10 G', type: 'number', flex: 0.3 },
+    { field: 'a5', headerName: '05/10 A', type: 'number', flex: 0.3 },
+    { field: 'g6', headerName: '19/10 G', type: 'number', flex: 0.3 },
+    { field: 'a6', headerName: '19/10 A', type: 'number', flex: 0.3 },];
 
   const rows = playersData.map((player: any, id: any) => ({
     id,
@@ -136,6 +140,10 @@ function App() {
     a3: player.matches[2]?.a,
     g4: player.matches[3]?.g,
     a4: player.matches[3]?.a,
+    g5: player.matches[4]?.g,
+    a5: player.matches[4]?.a,
+    g6: player.matches[5]?.g,
+    a6: player.matches[5]?.a,
   }));
 
   return (
