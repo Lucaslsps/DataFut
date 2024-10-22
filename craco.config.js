@@ -1,19 +1,17 @@
-const CracoAlias = require('craco-alias');
+const CracoAlias = require("craco-alias");
 
 module.exports = {
   plugins: [
     {
       plugin: CracoAlias,
       options: {
-        source: 'tsconfig',
+        source: "tsconfig",
         /* tsConfigPath should point to the file where "paths" are specified */
-        tsConfigPath: './tsconfig.paths.json',
+        tsConfigPath: "./tsconfig.paths.json",
       },
     },
   ],
   webpack: {
-    alias: {
-      '@mui/styled-engine': '@mui/styled-engine-sc',
-    },
+    alias: {},
   },
 };

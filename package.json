@@ -8,7 +8,6 @@
     "@mui/icons-material": "^6.1.5",
     "@mui/lab": "latest",
     "@mui/material": "^6.1.5",
-    "@mui/styled-engine-sc": "latest",
     "@mui/utils": "^6.1.5",
     "@mui/x-data-grid": "^7.18.0",
     "@testing-library/jest-dom": "latest",
