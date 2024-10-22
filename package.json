@@ -3,20 +3,21 @@
   "version": "5.0.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.5",
     "@mui/lab": "latest",
     "@mui/material": "^6.1.5",
+    "@mui/styled-engine-sc": "latest",
     "@mui/utils": "^6.1.5",
     "@mui/x-data-grid": "^7.18.0",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
+    "material-ui-cra-styled-components-ts": "file:",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
-    "recharts": "^2.13.0"
+    "recharts": "^2.13.0",
+    "styled-components": "latest"
   },
   "scripts": {
     "tsc": "./node_modules/.bin/tsc",
