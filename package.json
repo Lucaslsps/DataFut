@@ -17,8 +17,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
-    "recharts": "^2.13.0",
-    "styled-components": "latest"
+    "recharts": "^2.13.0"
   },
   "scripts": {
     "tsc": "./node_modules/.bin/tsc",
