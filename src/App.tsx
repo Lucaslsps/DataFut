@@ -500,11 +500,13 @@ function App() {
       <Paper>
         {/* Dropdown to select player */}
         <Select value={selectedPlayer.name} onChange={handlePlayerChange}>
-          {rawPlayersData.map((player) => (
-            <MenuItem key={player.name} value={player.name}>
-              {player.name}
-            </MenuItem>
-          ))}
+          {rawPlayersData
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((player) => (
+              <MenuItem key={player.name} value={player.name}>
+                {player.name}
+              </MenuItem>
+            ))}
         </Select>
 
         {/* Render the chart for the selected player */}
