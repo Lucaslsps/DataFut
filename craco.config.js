@@ -11,7 +11,4 @@ module.exports = {
       },
     },
   ],
-  webpack: {
-    alias: {},
-  },
 };
