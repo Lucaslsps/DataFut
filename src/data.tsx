@@ -91,7 +91,7 @@ export const rawPlayersData: Player[] = [
     matches: [
       { g: 1, a: 0 },
       { g: 3, a: 0 },
-      { g: "-", a: "-" },
+      { g: 1, a: 3 },
       { g: 1, a: 0 },
       { g: 3, a: 1 },
       { g: 1, a: 1 },
