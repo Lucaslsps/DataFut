@@ -1,0 +1,14 @@
+supabase project password: 
+RJIAVZ0XPYpNUMLb
+
+project api key (anon, public):
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWtrdnp1bWFvZnZqc21sY3NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA1MTExMDMsImV4cCI6MjA0NjA4NzEwM30.iX_ojYzd32WSEe7zVqtm9p3fVspwDsaYT6zSAY-_-_E
+
+service role (secret):
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWtrdnp1bWFvZnZqc21sY3NmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMDUxMTEwMywiZXhwIjoyMDQ2MDg3MTAzfQ.3iHCxs5_3K2Bl4f-KPSAdt1ag3AxYOctxY-9FW3utyE
+
+url: 
+https://seekkvzumaofvjsmlcsf.supabase.co
+
+jwt secret:
+Zbe+hj9RsrVbDWrW1kLr/dWKqLrD30CpoBvYvnvKpicbHxgccL1TcKBRVDirHGATkkzyPeoW/vDBnzb4lekTOw==

@@ -8,6 +8,7 @@
     "@mui/material": "^6.1.5",
     "@mui/styled-engine-sc": "^6.1.5",
     "@mui/x-data-grid": "^7.18.0",
+    "@supabase/supabase-js": "^2.46.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",

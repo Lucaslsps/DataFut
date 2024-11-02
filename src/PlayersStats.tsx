@@ -1,9 +1,9 @@
 import { Box, MenuItem, Paper, Select, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlayerStatsChart from "./PlayerStatsChart";
 import { Player } from "./interfaces";
-import { rawPlayersData } from "./data";
+import { getPlayerData } from "./services/repository/GetPlayerService";
 
 // Helper function to calculate total goals and assists
 const calculateTotals = (players: any[]) => {
@@ -55,15 +55,25 @@ const getPlayerRank = (playerName: any, topPlayers: any[]) => {
 };
 
 function PlayerStats() {
-  const [selectedPlayer, setSelectedPlayer] = useState(rawPlayersData[0]);
-  const playersData = calculateTotals(rawPlayersData);
+  const [players, setPlayers] = useState([] as Player[]);
+  const [selectedPlayer, setSelectedPlayer] = useState(players[0]);
+  const playersData = calculateTotals(players);
   const top3Goals = getTop3(playersData, "totalG");
   const top3Assists = getTop3(playersData, "totalA");
   const top3Participacoes = getTop3(playersData, "totalP");
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    getPlayerData().then((data) => {
+      setPlayers(data);
+      setSelectedPlayer(data[0]);
+      setLoadingData(false);
+    });
+  }, []);
 
   const handlePlayerChange = (event: any) => {
     const playerName = event.target.value;
-    const player = rawPlayersData.find((p) => p.name === playerName);
+    const player = players.find((p) => p.name === playerName);
     if (player) {
       setSelectedPlayer(player);
     }
@@ -171,7 +181,9 @@ function PlayerStats() {
     a6: player.matches[5]?.a,
   }));
 
-  return (
+  return loadingData ? (
+    <>Carregando...</>
+  ) : (
     <Box sx={{ width: "100%", textAlign: "center", p: 2 }}>
       <Typography variant="h3" gutterBottom>
         Data Fut - Deportivo BCC
@@ -179,7 +191,7 @@ function PlayerStats() {
       <Paper>
         {/* Dropdown to select player */}
         <Select value={selectedPlayer.name} onChange={handlePlayerChange}>
-          {rawPlayersData
+          {players
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((player) => (
               <MenuItem key={player.name} value={player.name}>

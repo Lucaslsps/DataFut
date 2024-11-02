@@ -23,8 +23,8 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
   const chartData = useMemo(() => {
     return player.matches.map((match, index) => ({
       date: `Partida ${index + 1}`, // You can replace this with an actual date if available
-      goals: match.g !== "-" ? match.g : 0,
-      assists: match.a !== "-" ? match.a : 0,
+      goals: match.g !== null ? match.g : 0,
+      assists: match.a !== null ? match.a : 0,
     }));
   }, [player]);
 

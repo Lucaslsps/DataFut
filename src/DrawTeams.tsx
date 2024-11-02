@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,18 +9,28 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
-import { rawPlayersData } from "./data";
 import { Player } from "./interfaces";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { getPlayerData } from "./services/repository/GetPlayerService";
+import { usePlayerContext } from "./contexts/PlayerProvider";
 
 function DrawTeams() {
   // State to manage selected players
+  const [players, setPlayers] = useState([] as Player[]);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
   const [numberOfTeams, setNumberOfTeams] = useState(3);
   const [playersPerTeam, setPlayersPerTeam] = useState(6);
   const [maxTeamRating, setMaxTeamRating] = useState(50);
   const [teams, setTeams] = useState<Player[][]>([]);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    getPlayerData().then((data) => {
+      setPlayers(data);
+      setLoadingData(false);
+    });
+  }, []);
 
   // Handle player selection
   const togglePlayerSelection = (player: Player) => {
@@ -114,7 +124,9 @@ function DrawTeams() {
     }
   };
 
-  return (
+  return loadingData ? (
+    <>Carregando...</>
+  ) : (
     <Box>
       <Typography variant="h5" sx={{ mb: 2 }}>
         Selecione os jogadores a serem sorteados
@@ -122,7 +134,7 @@ function DrawTeams() {
 
       {/* Player Selection */}
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
-        {rawPlayersData.map((player) => (
+        {players.map((player) => (
           <Paper
             key={player.name}
             elevation={1} // Lighter shadow effect

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import DrawTeams from "./DrawTeams";
 import PlayerStats from "./PlayersStats";
 import { Button, Box, Typography } from "@mui/material";
+import UpdateMatches from "./UpdateMatches";
 
 function App() {
   // State to manage which component to display
   const [selectedComponent, setSelectedComponent] = useState<
-    "PlayerStats" | "DrawTeams"
+    "PlayerStats" | "DrawTeams" | "UpdateMatches"
   >("PlayerStats");
 
   return (
@@ -28,6 +29,14 @@ function App() {
         >
           Sorteio
         </Button>
+        <Button
+          variant={
+            selectedComponent === "UpdateMatches" ? "contained" : "outlined"
+          }
+          onClick={() => setSelectedComponent("UpdateMatches")}
+        >
+          Partidas
+        </Button>
       </Box>
 
       {/* Conditionally render the selected component */}
@@ -36,9 +45,13 @@ function App() {
           <>
             <PlayerStats />
           </>
-        ) : (
+        ) : selectedComponent === "DrawTeams" ? (
           <>
             <DrawTeams />
+          </>
+        ) : (
+          <>
+            <UpdateMatches></UpdateMatches>
           </>
         )}
       </Box>
