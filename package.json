@@ -1,23 +1,19 @@
 {
-  "name": "material-ui-cra-styled-components-ts",
+  "name": "data-fut",
   "version": "5.0.0",
   "private": true,
   "dependencies": {
-    "@mui/icons-material": "^6.1.5",
-    "@mui/lab": "latest",
-    "@mui/material": "^6.1.5",
-    "@mui/styled-engine-sc": "^6.1.5",
-    "@mui/x-data-grid": "^7.18.0",
-    "@supabase/supabase-js": "^2.46.1",
-    "@testing-library/jest-dom": "latest",
-    "@testing-library/react": "latest",
-    "@testing-library/user-event": "latest",
-    "material-ui-cra-styled-components-ts": "file:",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-scripts": "latest",
-    "recharts": "^2.13.0",
-    "styled-components": "latest"
+    "@mui/icons-material": "6.1.5",
+    "@mui/lab": "6.0.0-beta.12",
+    "@mui/material": "6.1.5",
+    "@mui/styled-engine-sc": "6.1.5",
+    "@mui/x-data-grid": "7.18.0",
+    "@supabase/supabase-js": "2.46.1",
+    "data-fut": "file:",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-scripts": "5.0.1",
+    "recharts": "2.13.0"
   },
   "scripts": {
     "tsc": "./node_modules/.bin/tsc",
@@ -40,10 +36,10 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@craco/craco": "latest",
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "@craco/craco": "7.1.0",
+    "@types/node": "22.7.7",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.1",
     "craco-alias": "^3.0.1"
   }
 }

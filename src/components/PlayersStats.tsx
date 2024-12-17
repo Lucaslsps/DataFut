@@ -19,7 +19,7 @@ function PlayerStats() {
   useEffect(() => {
     getPlayerData().then((data) => {
       setPlayers(data);
-      setSelectedPlayer(data[0]);
+      setSelectedPlayer(data.sort((a, b) => a.name.localeCompare(b.name))[0]);
       setLoadingData(false);
     });
   }, []);

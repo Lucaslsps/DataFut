@@ -1,5 +1,4 @@
 import { supabase } from "../../configs/SupabaseClient";
-import { rawPlayersData } from "../../data";
 import { Player } from "../../interfaces";
 
 export async function getPlayerData(): Promise<Player[]> {

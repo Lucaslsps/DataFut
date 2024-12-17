@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import DrawTeams from "./components/DrawTeams";
 import GeneralStats from "./components/GeneralStats";
 import PlayersStats from "./components/PlayersStats";
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, Container } from "@mui/material";
 import UpdateMatches from "./components/UpdateMatches";
+import { JSX } from "react/jsx-runtime";
 
 const componentMapping: Record<string, JSX.Element> = {
   GeneralStats: <GeneralStats />,
@@ -30,7 +31,7 @@ function App() {
   );
 
   return (
-    <div style={{ paddingTop: 10 }}>
+    <Container style={{ paddingTop: 10 }}>
       {/* Header with options to select a component */}
       <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         {menuOptions.map((option) => (
@@ -48,7 +49,7 @@ function App() {
       <Box sx={{ textAlign: "center" }}>
         {componentMapping[selectedComponent] || <UpdateMatches />}
       </Box>
-    </div>
+    </Container>
   );
 }
 

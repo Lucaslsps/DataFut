@@ -1,7 +1,8 @@
-// MatchList.tsx
+// UpdateMatches.tsx
 import React, { useEffect, useState } from "react";
 import "../css/UpdateMatches.css";
 import { supabase } from "../configs/SupabaseClient";
+import { Button, Container, Typography } from "@mui/material";
 
 type Match = {
   id: number;
@@ -17,7 +18,7 @@ type GroupedMatches = {
   matches: Match[];
 };
 
-const MatchList: React.FC = () => {
+function UpdateMatches() {
   const [groupedMatches, setGroupedMatches] = useState<GroupedMatches[]>([]);
 
   const fetchMatches = async () => {
@@ -95,36 +96,40 @@ const MatchList: React.FC = () => {
   };
 
   return (
-    <div className="match-list">
-      <h2>Match List</h2>
+    <Container className="match-list">
+      <Typography variant="h2">Match List</Typography>
       {groupedMatches.map((group) => (
-        <div key={group.date} className="date-group">
-          <h3 className="match-date">{group.date}</h3>
-          <div className="matches-container">
+        <Container key={group.date} className="date-group">
+          <Typography variant="h3" className="match-date">
+            {group.date}
+          </Typography>
+          <Container className="matches-container">
             {group.matches.map((match) => (
-              <div key={match.id} className="match-card">
-                <p className="player-name">{match.player_name}</p>
-                <div className="stat">
-                  <span>Goals: {match.g}</span>
-                  <div className="buttons">
-                    <button onClick={() => incrementGoals(match)}>+</button>
-                    <button onClick={() => decrementGoals(match)}>-</button>
-                  </div>
-                </div>
-                <div className="stat">
-                  <span>Assists: {match.a}</span>
-                  <div className="buttons">
-                    <button onClick={() => incrementAssists(match)}>+</button>
-                    <button onClick={() => decrementAssists(match)}>-</button>
-                  </div>
-                </div>
-              </div>
+              <Container key={match.id} className="match-card">
+                <Typography className="player-name">
+                  {match.player_name}
+                </Typography>
+                <Container className="stat">
+                  <Typography>Goals: {match.g}</Typography>
+                  <Container className="buttons">
+                    <Button onClick={() => incrementGoals(match)}>+</Button>
+                    <Button onClick={() => decrementGoals(match)}>-</Button>
+                  </Container>
+                </Container>
+                <Container className="stat">
+                  <Typography>Assists: {match.a}</Typography>
+                  <Container className="buttons">
+                    <Button onClick={() => incrementAssists(match)}>+</Button>
+                    <Button onClick={() => decrementAssists(match)}>-</Button>
+                  </Container>
+                </Container>
+              </Container>
             ))}
-          </div>
-        </div>
+          </Container>
+        </Container>
       ))}
-    </div>
+    </Container>
   );
-};
+}
 
-export default MatchList;
+export default UpdateMatches;
