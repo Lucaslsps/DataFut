@@ -9,11 +9,11 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
-import { Player } from "./interfaces";
+import { Player } from "../interfaces";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { getPlayerData } from "./services/repository/GetPlayerService";
-import { usePlayerContext } from "./contexts/PlayerProvider";
+import { getPlayerData } from "../services/repository/GetPlayerService";
+import { usePlayerContext } from "../contexts/PlayerProvider";
 
 function DrawTeams() {
   // State to manage selected players

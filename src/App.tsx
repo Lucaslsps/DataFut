@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import DrawTeams from "./DrawTeams";
-import PlayerStats from "./PlayersStats";
+import DrawTeams from "./components/DrawTeams";
+import GeneralStats from "./components/GeneralStats";
+import PlayersStats from "./components/PlayersStats";
 import { Button, Box, Typography } from "@mui/material";
-import UpdateMatches from "./UpdateMatches";
+import UpdateMatches from "./components/UpdateMatches";
 
 const componentMapping: Record<string, JSX.Element> = {
-  PlayerStats: <PlayerStats />,
+  GeneralStats: <GeneralStats />,
+  PlayersStats: <PlayersStats />,
   DrawTeams: <DrawTeams />,
   UpdateMatches: <UpdateMatches />,
 };
@@ -17,7 +19,8 @@ interface IMenuOptions {
 
 function App() {
   const menuOptions: IMenuOptions[] = [
-    { id: "PlayerStats", description: "Estatísticas" },
+    { id: "GeneralStats", description: "Estatísticas gerais" },
+    { id: "PlayersStats", description: "Estatística de jogador" },
     { id: "DrawTeams", description: "Sorteio" },
     { id: "UpdateMatches", description: "Partidas" },
   ];

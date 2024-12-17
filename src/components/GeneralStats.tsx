@@ -1,9 +1,8 @@
 import { Box, MenuItem, Paper, Select, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import PlayerStatsChart from "./PlayerStatsChart";
-import { Player } from "./interfaces";
-import { getPlayerData } from "./services/repository/GetPlayerService";
+import { Player } from "../interfaces";
+import { getPlayerData } from "../services/repository/GetPlayerService";
 
 // Helper function to calculate total goals and assists
 const calculateTotals = (players: any[]) => {
@@ -54,9 +53,8 @@ const getPlayerRank = (playerName: any, topPlayers: any[]) => {
   return ""; // Not in the top 3
 };
 
-function PlayerStats() {
+function GeneralStats() {
   const [players, setPlayers] = useState([] as Player[]);
-  const [selectedPlayer, setSelectedPlayer] = useState(players[0]);
   const playersData = calculateTotals(players);
   const top3Goals = getTop3(playersData, "totalG");
   const top3Assists = getTop3(playersData, "totalA");
@@ -66,18 +64,9 @@ function PlayerStats() {
   useEffect(() => {
     getPlayerData().then((data) => {
       setPlayers(data);
-      setSelectedPlayer(data[0]);
       setLoadingData(false);
     });
   }, []);
-
-  const handlePlayerChange = (event: any) => {
-    const playerName = event.target.value;
-    const player = players.find((p) => p.name === playerName);
-    if (player) {
-      setSelectedPlayer(player);
-    }
-  };
 
   const columns: GridColDef[] = [
     {
@@ -188,21 +177,6 @@ function PlayerStats() {
       <Typography variant="h3" gutterBottom>
         Data Fut - Deportivo BCC
       </Typography>
-      <Paper>
-        {/* Dropdown to select player */}
-        <Select value={selectedPlayer.name} onChange={handlePlayerChange}>
-          {players
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((player) => (
-              <MenuItem key={player.name} value={player.name}>
-                {player.name}
-              </MenuItem>
-            ))}
-        </Select>
-
-        {/* Render the chart for the selected player */}
-        <PlayerStatsChart player={selectedPlayer} />
-      </Paper>
       <Box
         display="flex"
         flexDirection={{ xs: "column", sm: "row" }}
@@ -445,4 +419,4 @@ function PlayerStats() {
   );
 }
 
-export default PlayerStats;
+export default GeneralStats;

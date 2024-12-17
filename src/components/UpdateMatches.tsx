@@ -1,7 +1,7 @@
 // MatchList.tsx
 import React, { useEffect, useState } from "react";
-import "./css/UpdateMatches.css";
-import { supabase } from "./configs/SupabaseClient";
+import "../css/UpdateMatches.css";
+import { supabase } from "../configs/SupabaseClient";
 
 type Match = {
   id: number;
