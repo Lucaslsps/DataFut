@@ -27,7 +27,7 @@ function DrawTeams() {
 
   useEffect(() => {
     getPlayerData().then((data) => {
-      setPlayers(data);
+      setPlayers(data.sort((a, b) => a.name.localeCompare(b.name)));
       setLoadingData(false);
     });
   }, []);
@@ -215,6 +215,13 @@ function DrawTeams() {
           type="number"
           value={maxTeamRating}
           onChange={(e) => setMaxTeamRating(Number(e.target.value))}
+          sx={{ mr: 2 }}
+        />
+        <TextField
+          label="Jogadores selecionados"
+          type="text"
+          disabled={true}
+          value={selectedPlayers.length}
         />
       </Box>
 

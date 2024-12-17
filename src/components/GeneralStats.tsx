@@ -137,7 +137,7 @@ function GeneralStats() {
         </Box>
       ),
     },
-    { field: "g1", headerName: "10/08 G", type: "number", flex: 0.3 },
+    /*     { field: "g1", headerName: "10/08 G", type: "number", flex: 0.3 },
     { field: "a1", headerName: "10/08 A", type: "number", flex: 0.3 },
     { field: "g2", headerName: "24/08 G", type: "number", flex: 0.3 },
     { field: "a2", headerName: "24/08 A", type: "number", flex: 0.3 },
@@ -148,7 +148,7 @@ function GeneralStats() {
     { field: "g5", headerName: "05/10 G", type: "number", flex: 0.3 },
     { field: "a5", headerName: "05/10 A", type: "number", flex: 0.3 },
     { field: "g6", headerName: "19/10 G", type: "number", flex: 0.3 },
-    { field: "a6", headerName: "19/10 A", type: "number", flex: 0.3 },
+    { field: "a6", headerName: "19/10 A", type: "number", flex: 0.3 }, */
   ];
 
   const rows = playersData.map((player: any, id: any) => ({
@@ -156,7 +156,7 @@ function GeneralStats() {
     name: player.name,
     totalG: player.totalG,
     totalA: player.totalA,
-    g1: player.matches[0]?.g,
+    /*     g1: player.matches[0]?.g,
     a1: player.matches[0]?.a,
     g2: player.matches[1]?.g,
     a2: player.matches[1]?.a,
@@ -167,7 +167,7 @@ function GeneralStats() {
     g5: player.matches[4]?.g,
     a5: player.matches[4]?.a,
     g6: player.matches[5]?.g,
-    a6: player.matches[5]?.a,
+    a6: player.matches[5]?.a, */
   }));
 
   return loadingData ? (

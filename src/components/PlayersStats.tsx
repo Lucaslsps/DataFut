@@ -1,34 +1,15 @@
-import { Box, MenuItem, Paper, Select, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  MenuItem,
+  Paper,
+  Select,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import PlayerStatsChart from "../PlayerStatsChart";
 import { Player } from "../interfaces";
 import { getPlayerData } from "../services/repository/GetPlayerService";
-
-// Helper function to calculate total goals and assists
-const calculateTotals = (players: any[]) => {
-  return players.map((player: { matches: any[] }) => ({
-    ...player,
-    totalG: structuredClone(player).matches.reduce(
-      (sum: any, match: { g: string }) => sum + (match.g !== "-" ? match.g : 0),
-      0
-    ),
-    totalA: structuredClone(player).matches.reduce(
-      (sum: any, match: { a: string }) => sum + (match.a !== "-" ? match.a : 0),
-      0
-    ),
-    totalP:
-      structuredClone(player).matches.reduce(
-        (sum: any, match: { g: string }) =>
-          sum + (match.g !== "-" ? match.g : 0),
-        0
-      ) +
-      structuredClone(player).matches.reduce(
-        (sum: any, match: { a: string }) =>
-          sum + (match.a !== "-" ? match.a : 0),
-        0
-      ),
-  }));
-};
 
 function PlayerStats() {
   const [players, setPlayers] = useState([] as Player[]);
@@ -58,7 +39,7 @@ function PlayerStats() {
       <Typography variant="h3" gutterBottom>
         Data Fut - Deportivo BCC
       </Typography>
-      <Paper>
+      <Container>
         {/* Dropdown to select player */}
         <Select value={selectedPlayer.name} onChange={handlePlayerChange}>
           {players
@@ -72,7 +53,7 @@ function PlayerStats() {
 
         {/* Render the chart for the selected player */}
         <PlayerStatsChart player={selectedPlayer} />
-      </Paper>
+      </Container>
     </Box>
   );
 }
