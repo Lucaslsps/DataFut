@@ -1,5 +1,5 @@
-import { supabase } from "../../configs/SupabaseClient";
-import { Player } from "../../interfaces";
+import { supabase } from "../configs/SupabaseClient";
+import { Player } from "../interfaces";
 
 export async function getPlayerData(): Promise<Player[]> {
   const { data: players, error: playersError } = await supabase

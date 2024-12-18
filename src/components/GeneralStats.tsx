@@ -1,57 +1,14 @@
-import { Box, MenuItem, Paper, Select, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Player } from "../interfaces";
-import { getPlayerData } from "../services/repository/GetPlayerService";
-
-// Helper function to calculate total goals and assists
-const calculateTotals = (players: any[]) => {
-  return players.map((player: { matches: any[] }) => ({
-    ...player,
-    totalG: structuredClone(player).matches.reduce(
-      (sum: any, match: { g: string }) => sum + (match.g !== "-" ? match.g : 0),
-      0
-    ),
-    totalA: structuredClone(player).matches.reduce(
-      (sum: any, match: { a: string }) => sum + (match.a !== "-" ? match.a : 0),
-      0
-    ),
-    totalP:
-      structuredClone(player).matches.reduce(
-        (sum: any, match: { g: string }) =>
-          sum + (match.g !== "-" ? match.g : 0),
-        0
-      ) +
-      structuredClone(player).matches.reduce(
-        (sum: any, match: { a: string }) =>
-          sum + (match.a !== "-" ? match.a : 0),
-        0
-      ),
-  }));
-};
-
-const getTop3 = (players: any, field: string) => {
-  return [...players].sort((a, b) => b[field] - a[field]).slice(0, 3);
-};
-
-// Function to check if player is in top 3 of goals or assists
-const isTop3 = (player: { name: any }, field: string, top3List: any[]) => {
-  return top3List.some(
-    (topPlayer: { name: any }) => topPlayer.name === player.name
-  );
-};
-
-// Function to determine the rank of a player based on a specified field (goals or assists)
-const getPlayerRank = (playerName: any, topPlayers: any[]) => {
-  const rankIndex = topPlayers.findIndex(
-    (player: { name: any }) => player.name === playerName
-  );
-
-  if (rankIndex === 0) return "🥇"; // 1st place
-  if (rankIndex === 1) return "🥈"; // 2nd place
-  if (rankIndex === 2) return "🥉"; // 3rd place
-  return ""; // Not in the top 3
-};
+import { getPlayerData } from "../repository/GetPlayerService";
+import {
+  calculateTotals,
+  getTop3,
+  isTop3,
+  getPlayerRank,
+} from "../services/StatsService";
 
 function GeneralStats() {
   const [players, setPlayers] = useState([] as Player[]);
@@ -78,8 +35,8 @@ function GeneralStats() {
         <Box>
           <Typography
             fontWeight={
-              isTop3({ name: params.value }, "totalG", top3Goals) ||
-              isTop3({ name: params.value }, "totalA", top3Assists)
+              isTop3({ name: params.value }, top3Goals) ||
+              isTop3({ name: params.value }, top3Assists)
                 ? "bold"
                 : "normal"
             }
@@ -101,11 +58,9 @@ function GeneralStats() {
       renderCell: (params: any) => (
         <Box
           sx={{
-            fontWeight: isTop3(params.row, "totalG", top3Goals)
-              ? "bold"
-              : "normal",
-            color: isTop3(params.row, "totalG", top3Goals) ? "green" : "black",
-            backgroundColor: isTop3(params.row, "totalG", top3Goals)
+            fontWeight: isTop3(params.row, top3Goals) ? "bold" : "normal",
+            color: isTop3(params.row, top3Goals) ? "green" : "black",
+            backgroundColor: isTop3(params.row, top3Goals)
               ? "#d4edda"
               : "white",
             textAlign: "center", // Ensure text is centered inside the custom rendered cell
@@ -124,11 +79,9 @@ function GeneralStats() {
       renderCell: (params: any) => (
         <Box
           sx={{
-            fontWeight: isTop3(params.row, "totalA", top3Assists)
-              ? "bold"
-              : "normal",
-            color: isTop3(params.row, "totalA", top3Assists) ? "blue" : "black",
-            backgroundColor: isTop3(params.row, "totalA", top3Assists)
+            fontWeight: isTop3(params.row, top3Assists) ? "bold" : "normal",
+            color: isTop3(params.row, top3Assists) ? "blue" : "black",
+            backgroundColor: isTop3(params.row, top3Assists)
               ? "#cce5ff"
               : "white",
           }}
@@ -177,14 +130,15 @@ function GeneralStats() {
       <Typography variant="h3" gutterBottom>
         Data Fut - Deportivo BCC
       </Typography>
-      <Box
+      <Grid2
+        container
         display="flex"
         flexDirection={{ xs: "column", sm: "row" }}
         justifyContent="space-around"
         mt={4}
       >
         {/* Top 3 Artilheiros Podium */}
-        <Box>
+        <Grid2>
           <Typography variant="h6" align="center" fontWeight="bold">
             Top 3 Artilheiros:
           </Typography>
@@ -251,10 +205,85 @@ function GeneralStats() {
               <Typography>{top3Goals[2].totalG} Gols</Typography>
             </Box>
           </Box>
-        </Box>
+        </Grid2>
+
+        {/* Top 3 Garçons Podium */}
+        <Grid2>
+          <Typography
+            variant="h6"
+            align="center"
+            fontWeight="bold"
+            mt={{ xs: 2, sm: 0 }}
+          >
+            Top 3 Garçons:
+          </Typography>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-end"
+            mt={2}
+          >
+            {/* 2nd place */}
+            <Box
+              width={{ xs: "80%", sm: 120 }}
+              height={150}
+              bgcolor="silver"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+              flexDirection="column"
+            >
+              <Typography>🥈</Typography>
+              <Typography variant="subtitle1" align="center" fontWeight="bold">
+                2º {top3Assists[1].name}
+              </Typography>
+              <Typography>{top3Assists[1].totalA} Assistências</Typography>
+            </Box>
+
+            {/* 1st place */}
+            <Box
+              width={{ xs: "80%", sm: 120 }}
+              height={200}
+              bgcolor="gold"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+              flexDirection="column"
+            >
+              <Typography>🥇</Typography>
+              <Typography variant="subtitle1" align="center" fontWeight="bold">
+                1º {top3Assists[0].name}
+              </Typography>
+              <Typography>{top3Assists[0].totalA} Assistências</Typography>
+            </Box>
+
+            {/* 3rd place */}
+            <Box
+              width={{ xs: "80%", sm: 120 }}
+              height={120}
+              bgcolor="#cd7f32"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius={1}
+              mx={1}
+              flexDirection="column"
+            >
+              <Typography>🥉</Typography>
+              <Typography variant="subtitle1" align="center" fontWeight="bold">
+                3º {top3Assists[2].name}
+              </Typography>
+              <Typography>{top3Assists[2].totalA} Assistências</Typography>
+            </Box>
+          </Box>
+        </Grid2>
 
         {/* Top 3 Participações Podium */}
-        <Box>
+        <Grid2>
           <Typography variant="h6" align="center" fontWeight="bold">
             Top 3 Participações:
           </Typography>
@@ -327,83 +356,8 @@ function GeneralStats() {
               </Typography>
             </Box>
           </Box>
-        </Box>
-
-        {/* Top 3 Garçons Podium */}
-        <Box>
-          <Typography
-            variant="h6"
-            align="center"
-            fontWeight="bold"
-            mt={{ xs: 2, sm: 0 }}
-          >
-            Top 3 Garçons:
-          </Typography>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="flex-end"
-            mt={2}
-          >
-            {/* 2nd place */}
-            <Box
-              width={{ xs: "80%", sm: 120 }}
-              height={150}
-              bgcolor="silver"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              borderRadius={1}
-              mx={1}
-              flexDirection="column"
-            >
-              <Typography>🥈</Typography>
-              <Typography variant="subtitle1" align="center" fontWeight="bold">
-                2º {top3Assists[1].name}
-              </Typography>
-              <Typography>{top3Assists[1].totalA} Assistências</Typography>
-            </Box>
-
-            {/* 1st place */}
-            <Box
-              width={{ xs: "80%", sm: 120 }}
-              height={200}
-              bgcolor="gold"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              borderRadius={1}
-              mx={1}
-              flexDirection="column"
-            >
-              <Typography>🥇</Typography>
-              <Typography variant="subtitle1" align="center" fontWeight="bold">
-                1º {top3Assists[0].name}
-              </Typography>
-              <Typography>{top3Assists[0].totalA} Assistências</Typography>
-            </Box>
-
-            {/* 3rd place */}
-            <Box
-              width={{ xs: "80%", sm: 120 }}
-              height={120}
-              bgcolor="#cd7f32"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              borderRadius={1}
-              mx={1}
-              flexDirection="column"
-            >
-              <Typography>🥉</Typography>
-              <Typography variant="subtitle1" align="center" fontWeight="bold">
-                3º {top3Assists[2].name}
-              </Typography>
-              <Typography>{top3Assists[2].totalA} Assistências</Typography>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+        </Grid2>
+      </Grid2>
 
       {/* Player Stats DataGrid */}
       <Box

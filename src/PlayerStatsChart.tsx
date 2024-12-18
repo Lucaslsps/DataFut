@@ -10,15 +10,18 @@ import {
   BarChart,
   LabelList,
 } from "recharts";
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Divider, Grid2, Paper, Typography } from "@mui/material";
 
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer"; // Icon for goals
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"; // Icon for assists
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople"; // Icon for participations
 
-import { PlayerStatsChartProps } from "./interfaces";
+import { PlayerStatsChartProps, RankTagProps } from "./interfaces";
 
-const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
+const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({
+  player,
+  tags,
+}) => {
   // Process and structure the data for the chart
   const chartData = useMemo(() => {
     return player.matches.map((match, index) => ({
@@ -60,7 +63,7 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
         <Box sx={{ textAlign: "center" }}>
           <EmojiEventsIcon sx={{ color: "#388e3c", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Assistências
+            Assistências {tags.get("topassist")}
           </Typography>
           <Typography variant="h5" sx={{ color: "#388e3c" }}>
             {totalAssists}
@@ -71,7 +74,7 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
         <Box sx={{ textAlign: "center" }}>
           <SportsSoccerIcon sx={{ color: "#1976d2", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Gols
+            Gols {tags.get("topgoalscorer")}
           </Typography>
           <Typography variant="h5" sx={{ color: "#1976d2" }}>
             {totalGoals}
@@ -82,13 +85,20 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
         <Box sx={{ textAlign: "center" }}>
           <EmojiPeopleIcon sx={{ color: "#f57c00", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Participações
+            Participações {tags.get("toppart")}
           </Typography>
           <Typography variant="h5" sx={{ color: "#f57c00" }}>
             {totalGoalsAssists}
           </Typography>
         </Box>
       </Paper>
+
+      <Grid2>
+        <RankTag rank={tags.get("topgoalscorer")} label="Artilheiro" />
+        <RankTag rank={tags.get("topassist")} label="Assistência" />
+        <RankTag rank={tags.get("toppart")} label="Participação" />
+        <RankTag value={Number(tags.get("goals"))} label="Gols" />
+      </Grid2>
 
       <Divider />
 
@@ -119,6 +129,53 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({ player }) => {
       </ResponsiveContainer>
     </Box>
   );
+};
+
+const RankTag: React.FC<RankTagProps> = ({ rank, label, value }) => {
+  const rankTextMap: Record<string, string> = {
+    "🥇": `TOP 1 ${label}`,
+    "🥈": `TOP 2 ${label}`,
+    "🥉": `TOP 3 ${label}`,
+  };
+
+  const thresholds: { [key: number]: string } = {
+    20: "20+ Gols",
+    10: "10+ Gols",
+    5: "5+ Gols",
+  };
+
+  // Styles
+  const tagStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    backgroundColor: rank ? "#e0f7fa" : "#f0f0f0", // Light teal or gray
+    color: rank ? "#00796b" : "#555", // Dark teal or neutral gray
+    padding: "4px 12px",
+    borderRadius: "16px",
+    fontSize: "14px",
+    fontWeight: "500",
+    margin: "4px",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+    cursor: "default",
+  };
+
+  if (rank && rankTextMap[rank]) {
+    return <div style={tagStyle}>{rankTextMap[rank]}</div>;
+  }
+
+  if (value && thresholds) {
+    // Find the highest threshold the value satisfies
+    const thresholdKey = Object.keys(thresholds)
+      .map(Number)
+      .sort((a, b) => b - a) // Sort descending
+      .find((threshold) => value > threshold);
+
+    return thresholdKey ? (
+      <div style={tagStyle}>{thresholds[thresholdKey]}</div>
+    ) : null;
+  }
+
+  return null;
 };
 
 export default PlayerStatsChart;

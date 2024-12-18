@@ -3,17 +3,14 @@ import {
   Box,
   Button,
   Checkbox,
-  FormControlLabel,
   Typography,
-  Slider,
   TextField,
   Paper,
 } from "@mui/material";
 import { Player } from "../interfaces";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { getPlayerData } from "../services/repository/GetPlayerService";
-import { usePlayerContext } from "../contexts/PlayerProvider";
+import { getPlayerData } from "../repository/GetPlayerService";
 
 function DrawTeams() {
   // State to manage selected players

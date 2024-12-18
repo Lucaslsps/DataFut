@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import { Player } from "../interfaces";
-import { getPlayerData } from "../services/repository/GetPlayerService";
+import { getPlayerData } from "../repository/GetPlayerService";
 
 // Define the initial state type
 interface PlayerState {

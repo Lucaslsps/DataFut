@@ -1,15 +1,9 @@
-import {
-  Box,
-  Container,
-  MenuItem,
-  Paper,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Box, Container, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import PlayerStatsChart from "../PlayerStatsChart";
 import { Player } from "../interfaces";
-import { getPlayerData } from "../services/repository/GetPlayerService";
+import { getPlayerData } from "../repository/GetPlayerService";
+import { getPlayerTags } from "../services/StatsService";
 
 function PlayerStats() {
   const [players, setPlayers] = useState([] as Player[]);
@@ -36,9 +30,6 @@ function PlayerStats() {
     <>Carregando...</>
   ) : (
     <Box sx={{ width: "100%", textAlign: "center", p: 2 }}>
-      <Typography variant="h3" gutterBottom>
-        Data Fut - Deportivo BCC
-      </Typography>
       <Container>
         {/* Dropdown to select player */}
         <Select value={selectedPlayer.name} onChange={handlePlayerChange}>
@@ -52,7 +43,10 @@ function PlayerStats() {
         </Select>
 
         {/* Render the chart for the selected player */}
-        <PlayerStatsChart player={selectedPlayer} />
+        <PlayerStatsChart
+          player={selectedPlayer}
+          tags={getPlayerTags(players, selectedPlayer)}
+        />
       </Container>
     </Box>
   );

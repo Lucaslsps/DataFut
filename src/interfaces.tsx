@@ -15,4 +15,11 @@ export type Player = {
 
 export type PlayerStatsChartProps = {
   player: Player;
+  tags: Map<string, string>;
+};
+
+export type RankTagProps = {
+  rank?: string; // 🥇, 🥈, 🥉, or undefined
+  label: string;
+  value?: number; // For dynamic conditions like goals
 };
