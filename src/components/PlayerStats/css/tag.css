@@ -1,0 +1,30 @@
+.glowing-gradient {
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff9900,
+    #ffff00,
+    #33cc33,
+    #00ccff,
+    #9933ff,
+    #ff33cc
+  );
+  background-size: 400% 400%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

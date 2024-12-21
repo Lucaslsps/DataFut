@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DrawTeams from "./components/DrawTeams";
 import GeneralStats from "./components/GeneralStats";
-import PlayersStats from "./components/PlayersStats";
+import PlayersStats from "./components/PlayerStats/PlayersStats";
 import { Button, Box, Typography, Container } from "@mui/material";
 import UpdateMatches from "./components/UpdateMatches";
 import { JSX } from "react/jsx-runtime";

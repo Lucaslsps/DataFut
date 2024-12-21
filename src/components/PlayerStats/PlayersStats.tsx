@@ -1,9 +1,9 @@
 import { Box, Container, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import PlayerStatsChart from "../PlayerStatsChart";
-import { Player } from "../interfaces";
-import { getPlayerData } from "../repository/GetPlayerService";
-import { getPlayerTags } from "../services/StatsService";
+import PlayerStatsChart from "../../PlayerStatsChart";
+import { Player } from "../../interfaces";
+import { getPlayerData } from "../../repository/GetPlayerService";
+import { getPlayerTags } from "../../services/StatsService";
 
 function PlayerStats() {
   const [players, setPlayers] = useState([] as Player[]);
