@@ -1,4 +1,4 @@
-.glowing-gradient {
+.special-class {
   font-weight: bold;
   color: #fff;
   background: linear-gradient(
@@ -27,4 +27,50 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.second-class {
+  --border-angle: 0deg;
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px hsl(0 0% 0% / 25%);
+  animation: border-angle-rotate 2s infinite linear;
+  border: 0.1rem solid transparent;
+  color: black;
+  background: linear-gradient(white, white) padding-box,
+    conic-gradient(
+        from var(--border-angle),
+        hsl(0, 1%, 36%),
+        hsl(0 0% 90%),
+        hsl(0, 1%, 25%),
+        hsl(0 0% 80%),
+        hsl(0 0% 85%)
+      )
+      border-box;
+}
+
+@keyframes border-angle-rotate {
+  from {
+    --border-angle: 0deg;
+  }
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.third-class {
+  --border-angle: 0deg;
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px hsl(0 0% 0% / 25%);
+  animation: border-angle-rotate 2s infinite linear;
+  border: 0.1rem solid transparent;
+  color: black;
+  background: linear-gradient(white, white) padding-box,
+    conic-gradient(
+        from var(--border-angle),
+        hsl(30 70% 40%),
+        hsl(30 60% 35%),
+        hsl(30 80% 50%),
+        hsl(30 70% 40%)
+      )
+      border-box;
 }

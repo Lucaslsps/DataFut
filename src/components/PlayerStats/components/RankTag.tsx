@@ -22,31 +22,31 @@ const RankTag: React.FC<RankTagProps> = ({ rank, label }) => {
 
   const rankTextMap: Record<
     string,
-    { label: string; bgColor: string; txtColor: string; isSpecial: boolean }
+    { label: string; bgColor: string; txtColor: string; cssName: string }
   > = {
     "🥇": {
       label: `TOP 1 ${label}`,
       bgColor: "#d4af37",
       txtColor: "black",
-      isSpecial: true,
+      cssName: "special-class",
     },
     "🥈": {
       label: `TOP 2 ${label}`,
       bgColor: "#c0c0c0",
       txtColor: "black",
-      isSpecial: false,
+      cssName: "second-class",
     },
     "🥉": {
       label: `TOP 3 ${label}`,
       bgColor: "#cd7f32",
       txtColor: "black",
-      isSpecial: false,
+      cssName: "third-class",
     },
   };
   const rankText = rankTextMap[rank];
 
   return (
-    <button className={` ${rankText.isSpecial ? "glowing-gradient" : ""}`}>
+    <button className={`${rankText.cssName}`}>
       <span>{rankText.label}</span>
     </button>
   );
