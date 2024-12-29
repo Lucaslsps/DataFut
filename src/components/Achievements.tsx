@@ -42,17 +42,19 @@ const Achievements = () => {
       });
 
       // Create summary for each label
-      const summary = Array.from(labelMap.entries()).map(([label, names]) => {
-        const uniqueNames = [...new Set(names)].sort(); // Ensure alphabetical order
-        return {
-          tag: label, // Use the label as the tag
-          playerNames: uniqueNames,
-          count: uniqueNames.length,
-          percentage: parseFloat(
-            ((uniqueNames.length / data.length) * 100).toFixed(2)
-          ),
-        };
-      });
+      const summary = Array.from(labelMap.entries())
+        .map(([label, names]) => {
+          const uniqueNames = [...new Set(names)].sort(); // Ensure alphabetical order
+          return {
+            tag: label, // Use the label as the tag
+            playerNames: uniqueNames,
+            count: uniqueNames.length,
+            percentage: parseFloat(
+              ((uniqueNames.length / data.length) * 100).toFixed(2)
+            ),
+          };
+        })
+        .sort((a, b) => b.percentage - a.percentage); // Sort by percentage descending
 
       setTagSummary(summary);
     });

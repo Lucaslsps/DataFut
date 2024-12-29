@@ -97,7 +97,7 @@ function UpdateMatches() {
 
   return (
     <Container className="match-list">
-      <Typography variant="h2">Match List</Typography>
+      <Typography variant="h2">Partidas</Typography>
       {groupedMatches.map((group) => (
         <Container key={group.date} className="date-group">
           <Typography variant="h3" className="match-date">
