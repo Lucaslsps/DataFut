@@ -112,15 +112,37 @@ function UpdateMatches() {
                 <Container className="stat">
                   <Typography>Goals: {match.g}</Typography>
                   <Container className="buttons">
-                    <Button onClick={() => incrementGoals(match)}>+</Button>
-                    <Button onClick={() => decrementGoals(match)}>-</Button>
+                    <Button
+                      variant="contained"
+                      style={{ marginBottom: "0.5em" }}
+                      onClick={() => incrementGoals(match)}
+                    >
+                      +
+                    </Button>
+                    <Button
+                      variant="contained"
+                      onClick={() => decrementGoals(match)}
+                    >
+                      -
+                    </Button>
                   </Container>
                 </Container>
                 <Container className="stat">
                   <Typography>Assists: {match.a}</Typography>
                   <Container className="buttons">
-                    <Button onClick={() => incrementAssists(match)}>+</Button>
-                    <Button onClick={() => decrementAssists(match)}>-</Button>
+                    <Button
+                      variant="contained"
+                      style={{ marginBottom: "0.5em" }}
+                      onClick={() => incrementAssists(match)}
+                    >
+                      +
+                    </Button>
+                    <Button
+                      variant="contained"
+                      onClick={() => decrementAssists(match)}
+                    >
+                      -
+                    </Button>
                   </Container>
                 </Container>
               </Container>
