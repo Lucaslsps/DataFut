@@ -44,7 +44,7 @@ export const getPlayerRank = (playerName: any, topPlayers: any[]) => {
   return rankIndex + 1;
 };
 
-export const getPlayerTags = (players: any[], player: Player) => {
+export const getPlayerTags = (players: Player[], player: Player) => {
   const total = calculateTotals(players);
   const top3GoalList = getTop3(total, "totalG");
   const top3AssistList = getTop3(total, "totalA");
@@ -105,4 +105,8 @@ export const getPlayerTags = (players: any[], player: Player) => {
   );
 
   return tags;
+};
+
+export const getAllPlayerTags = (players: Player[]) => {
+  return players.map((player) => getPlayerTags(players, player));
 };

@@ -5,12 +5,14 @@ import PlayersStats from "./components/PlayerStats/PlayersStats";
 import { Button, Box, Typography, Container } from "@mui/material";
 import UpdateMatches from "./components/UpdateMatches";
 import { JSX } from "react/jsx-runtime";
+import Achievements from "./components/Achievements";
 
 const componentMapping: Record<string, JSX.Element> = {
   GeneralStats: <GeneralStats />,
   PlayersStats: <PlayersStats />,
   DrawTeams: <DrawTeams />,
   UpdateMatches: <UpdateMatches />,
+  Achievements: <Achievements />,
 };
 
 interface IMenuOptions {
@@ -24,6 +26,7 @@ function App() {
     { id: "PlayersStats", description: "Estatística de jogador" },
     { id: "DrawTeams", description: "Sorteio" },
     { id: "UpdateMatches", description: "Partidas" },
+    { id: "Achievements", description: "Conquistas" },
   ];
   // State to manage which component to display
   const [selectedComponent, setSelectedComponent] = useState<string>(

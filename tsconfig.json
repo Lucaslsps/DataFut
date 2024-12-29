@@ -15,7 +15,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "downlevelIteration": true
   },
   "include": ["src/**/*"]
 }
