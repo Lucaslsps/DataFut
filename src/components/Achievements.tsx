@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ITag, Player } from "../interfaces";
 import { getPlayerData } from "../repository/GetPlayerService";
 import {
+  Chip,
   Container,
   Divider,
   Grid,
@@ -75,11 +76,13 @@ const Achievements = () => {
               <Typography variant="h5" gutterBottom>
                 {summary.tag}
               </Typography>
-              <Divider />
               <Typography variant="h6" gutterBottom>
                 ({summary.count} jogadores) ({summary.percentage}
                 %)
               </Typography>
+              <Divider>
+                <Chip label="Jogadores" size="small" />
+              </Divider>
               <List>
                 {summary.playerNames.map((name) => (
                   <ListItem key={name}>
