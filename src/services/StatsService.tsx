@@ -1,4 +1,4 @@
-import { Player } from "../interfaces";
+import { Player, ITag } from "../interfaces";
 
 export const calculateTotals = (players: Player[]) => {
   return players.map((player: any) => ({
@@ -41,11 +41,7 @@ export const getPlayerRank = (playerName: any, topPlayers: any[]) => {
   const rankIndex = topPlayers.findIndex(
     (player: { name: any }) => player.name === playerName
   );
-
-  if (rankIndex === 0) return "🥇"; // 1st place
-  if (rankIndex === 1) return "🥈"; // 2nd place
-  if (rankIndex === 2) return "🥉"; // 3rd place
-  return ""; // Not in the top 3
+  return rankIndex + 1;
 };
 
 export const getPlayerTags = (players: any[], player: Player) => {
@@ -54,17 +50,59 @@ export const getPlayerTags = (players: any[], player: Player) => {
   const top3AssistList = getTop3(total, "totalA");
   const top3PartList = getTop3(total, "totalP");
 
-  const playerTotalStats = total.find(
-    (totalPlayer) => totalPlayer.name === player.name
+  const playerTotalStats = total.find((p) => p.name === player.name);
+
+  const tags: Map<string, ITag> = new Map();
+
+  if (!playerTotalStats) return tags;
+
+  const thresholds = [
+    { min: 10, max: 25, label: "10+", cssName: "ten-stat" },
+    { min: 25, max: 50, label: "25+", cssName: "twentyfive-stat" },
+    { min: 50, max: 100, label: "50+", cssName: "fifty-stat" },
+  ];
+
+  const assignThresholdTag = (value: number, key: string, metric: string) => {
+    const threshold = thresholds.find((t) => value >= t.min && value < t.max);
+    if (threshold) {
+      tags.set(key, {
+        label: `${threshold.label} ${metric}`,
+        cssName: threshold.cssName,
+      });
+    }
+  };
+
+  assignThresholdTag(playerTotalStats.totalG, "goalNumber", "Gols");
+  assignThresholdTag(playerTotalStats.totalA, "assistNumber", "Assistências");
+  assignThresholdTag(playerTotalStats.totalP, "partNumber", "Participações");
+
+  const assignRankTag = (rank: number, key: string, metric: string) => {
+    const badges = ["🥇", "🥈", "🥉"];
+    const cssClasses = ["special-class", "second-class", "third-class"];
+    if (rank >= 1 && rank <= 3) {
+      tags.set(key, {
+        label: `TOP ${rank} ${metric}`,
+        cssName: cssClasses[rank - 1],
+        badge: badges[rank - 1],
+      });
+    }
+  };
+
+  assignRankTag(
+    getPlayerRank(player.name, top3GoalList),
+    "goalScoringRank",
+    "Artilheiro"
+  );
+  assignRankTag(
+    getPlayerRank(player.name, top3AssistList),
+    "assistRank",
+    "Garçom"
+  );
+  assignRankTag(
+    getPlayerRank(player.name, top3PartList),
+    "partRank",
+    "Participações"
   );
 
-  const tags: Map<string, string> = new Map([
-    ["topgoalscorer", getPlayerRank(player.name, top3GoalList)],
-    ["topassist", getPlayerRank(player.name, top3AssistList)],
-    ["toppart", getPlayerRank(player.name, top3PartList)],
-    ["goals", playerTotalStats.totalG],
-    ["assists", playerTotalStats.totalA],
-    ["parts", playerTotalStats.totalP],
-  ]);
   return tags;
 };

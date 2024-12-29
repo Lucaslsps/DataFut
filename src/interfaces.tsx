@@ -15,18 +15,23 @@ export type Player = {
 
 export type PlayerStatsChartProps = {
   player: Player;
-  tags: Map<string, string>;
+  tags: Map<string, any>;
 };
 
 export type RankTagMainProps = {
-  tags: Map<string, string>;
+  tags: Map<string, any>;
 };
 
 export type RankTagProps = {
-  rank?: string; // 🥇, 🥈, 🥉, or undefined
-  label: string;
+  tag: any;
 };
 
 export type RankValueProps = {
   value?: number; // For dynamic conditions like goals
 };
+
+export interface ITag {
+  label: string;
+  cssName: string;
+  badge?: string;
+}

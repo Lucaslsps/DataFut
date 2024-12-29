@@ -64,7 +64,7 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({
         <Box sx={{ textAlign: "center" }}>
           <EmojiEventsIcon sx={{ color: "#388e3c", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Assistências {tags.get("topassist")}
+            Assistências {tags.get("assistRank")?.badge}
           </Typography>
           <Typography variant="h5" sx={{ color: "#388e3c" }}>
             {totalAssists}
@@ -75,7 +75,7 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({
         <Box sx={{ textAlign: "center" }}>
           <SportsSoccerIcon sx={{ color: "#1976d2", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Gols {tags.get("topgoalscorer")}
+            Gols {tags.get("goalScoringRank")?.badge}
           </Typography>
           <Typography variant="h5" sx={{ color: "#1976d2" }}>
             {totalGoals}
@@ -86,7 +86,7 @@ const PlayerStatsChart: React.FC<PlayerStatsChartProps> = ({
         <Box sx={{ textAlign: "center" }}>
           <EmojiPeopleIcon sx={{ color: "#f57c00", fontSize: 40 }} />
           <Typography variant="h6" sx={{ fontWeight: "bold", mt: 1 }}>
-            Participações {tags.get("toppart")}
+            Participações {tags.get("partRank")?.badge}
           </Typography>
           <Typography variant="h5" sx={{ color: "#f57c00" }}>
             {totalGoalsAssists}
