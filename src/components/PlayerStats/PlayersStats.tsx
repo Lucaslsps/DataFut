@@ -15,9 +15,10 @@ function PlayerStats() {
   useEffect(() => {
     getPlayerData().then((data) => {
       const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
-      const currentPlayer = user.playerId
-        ? data.findIndex((playerData) => playerData.id === user.playerId)
-        : 0;
+      const currentPlayer =
+        user && user.playerId
+          ? data.findIndex((playerData) => playerData.id === user.playerId)
+          : 0;
       setPlayers(data);
       setSelectedPlayer(sortedData[currentPlayer]);
       setLoadingData(false);
