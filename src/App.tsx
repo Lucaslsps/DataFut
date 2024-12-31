@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DrawTeams from "./components/DrawTeams";
 import GeneralStats from "./components/GeneralStats";
 import PlayersStats from "./components/PlayerStats/PlayersStats";
-import { Button, Box, Typography, Container } from "@mui/material";
+import { Button, Box, Container } from "@mui/material";
 import UpdateMatches from "./components/UpdateMatches";
 import { JSX } from "react/jsx-runtime";
 import Achievements from "./components/Achievements";
+import { useUserContext } from "./contexts/UserProvider";
+import GoogleSignInButton from "./components/GoogleSignInButton";
+import Avatar from "./components/Avatar/Avatar";
 
 const componentMapping: Record<string, JSX.Element> = {
   GeneralStats: <GeneralStats />,
@@ -21,6 +24,8 @@ interface IMenuOptions {
 }
 
 function App() {
+  const { user } = useUserContext();
+
   const menuOptions: IMenuOptions[] = [
     { id: "GeneralStats", description: "Estatísticas gerais" },
     { id: "PlayersStats", description: "Estatística de jogador" },
@@ -35,6 +40,20 @@ function App() {
 
   return (
     <Container style={{ paddingTop: 10 }}>
+      {user ? (
+        <Avatar></Avatar>
+      ) : (
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: "1em",
+          }}
+        >
+          <GoogleSignInButton />
+        </Container>
+      )}
       {/* Header with options to select a component */}
       <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         {menuOptions.map((option) => (

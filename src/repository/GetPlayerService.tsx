@@ -4,7 +4,7 @@ import { Player } from "../interfaces";
 export async function getPlayerData(): Promise<Player[]> {
   const { data: players, error: playersError } = await supabase
     .from("players")
-    .select("id, name, rating");
+    .select("id, name, rating, user (id, name, email, avatar_url)");
 
   if (playersError) {
     console.error(playersError);
@@ -29,10 +29,23 @@ export async function getPlayerData(): Promise<Player[]> {
         a: match.a,
       }));
 
+    const userFromPlayer = player.user ? (player.user as any) : null;
     return {
+      id: player.id,
       name: player.name,
       rating: player.rating,
       matches: playerMatches,
+      user: userFromPlayer
+        ? {
+            id: userFromPlayer.id,
+            name: userFromPlayer.name,
+            email: userFromPlayer.email,
+            avatarUrl: userFromPlayer.avatar_url,
+            playerId: player.id,
+            playerName: player.name,
+            playerRating: player.rating,
+          }
+        : undefined,
     };
   });
 

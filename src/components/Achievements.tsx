@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ITag, Player } from "../interfaces";
 import { getPlayerData } from "../repository/GetPlayerService";
 import {
+  Avatar,
   Chip,
   Container,
   Divider,
@@ -9,6 +10,7 @@ import {
   Grid2,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
   Paper,
   Typography,
@@ -18,9 +20,13 @@ import { getAllPlayerTags } from "../services/StatsService";
 const Achievements = () => {
   const [players, setPlayers] = useState([] as Player[]);
   const [loadingData, setLoadingData] = useState(true);
-  const [playerTags, setPlayerTags] = useState([] as Map<string, ITag>[]);
   const [tagSummary, setTagSummary] = useState<
-    { tag: string; playerNames: string[]; count: number; percentage: number }[]
+    {
+      tag: string;
+      playerNames: { name: string; avatarUrl?: string }[];
+      count: number;
+      percentage: number;
+    }[]
   >([]);
 
   useEffect(() => {
@@ -48,7 +54,11 @@ const Achievements = () => {
           const uniqueNames = [...new Set(names)].sort(); // Ensure alphabetical order
           return {
             tag: label, // Use the label as the tag
-            playerNames: uniqueNames,
+            playerNames: uniqueNames.map((name) => ({
+              name,
+              avatarUrl: data.find((player) => player.name === name)?.user
+                ?.avatarUrl,
+            })),
             count: uniqueNames.length,
             percentage: parseFloat(
               ((uniqueNames.length / data.length) * 100).toFixed(2)
@@ -85,8 +95,11 @@ const Achievements = () => {
               </Divider>
               <List>
                 {summary.playerNames.map((name) => (
-                  <ListItem key={name}>
-                    <ListItemText primary={name} />
+                  <ListItem key={name.name} sx={{ width: "50%" }}>
+                    <ListItem>
+                      <Avatar src={name.avatarUrl} alt="User Avatar" />
+                    </ListItem>
+                    <ListItemText primary={name.name} />
                   </ListItem>
                 ))}
               </List>

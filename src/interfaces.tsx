@@ -1,3 +1,13 @@
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  avatarUrl: string;
+  playerId?: number;
+  playerName?: string;
+  playerRating?: number;
+}
+
 // Define the type for the match data
 export type Match = {
   date: string;
@@ -11,6 +21,7 @@ export type Player = {
   name: string;
   rating: number;
   matches: Match[];
+  user?: User;
 };
 
 export type PlayerStatsChartProps = {
