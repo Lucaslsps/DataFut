@@ -74,12 +74,7 @@ const Achievements = () => {
     <>Carregando...</>
   ) : (
     <Container>
-      <Grid2
-        container
-        spacing={3}
-        display={"flex"}
-        justifyContent={"space-between"}
-      >
+      <Grid2 container spacing={3} display={"flex"}>
         {tagSummary.map((summary) => (
           <Grid item xs={12} sm={6} md={4} key={summary.tag}>
             <Paper elevation={3} style={{ padding: "16px" }}>
@@ -97,6 +92,7 @@ const Achievements = () => {
                 style={{
                   maxHeight: "300px", // Set the maximum height for the list
                   overflowY: "auto", // Enable vertical scrolling if content exceeds the height
+                  width: "14em",
                 }}
               >
                 {summary.playerNames.map((name) => (
