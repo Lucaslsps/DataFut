@@ -93,7 +93,12 @@ const Achievements = () => {
               <Divider>
                 <Chip label="Jogadores" size="small" />
               </Divider>
-              <List>
+              <List
+                style={{
+                  maxHeight: "300px", // Set the maximum height for the list
+                  overflowY: "auto", // Enable vertical scrolling if content exceeds the height
+                }}
+              >
                 {summary.playerNames.map((name) => (
                   <ListItem key={name.name} sx={{ width: "50%" }}>
                     <ListItem>
