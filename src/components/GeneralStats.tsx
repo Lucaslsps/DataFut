@@ -1,4 +1,4 @@
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Grid2, MenuItem, Select, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Player } from "../interfaces";
@@ -12,18 +12,55 @@ import {
 
 function GeneralStats() {
   const [players, setPlayers] = useState([] as Player[]);
+  const [initialPlayers, setInitialPlayers] = useState([] as Player[]);
+  const [loadingData, setLoadingData] = useState(true);
+  const [yearFilter, setYearFilter] = useState("");
+  const [yearsInDataset, setYearsInDataset] = useState([] as string[]);
   const playersData = calculateTotals(players);
   const top3Goals = getTop3(playersData, "totalG");
   const top3Assists = getTop3(playersData, "totalA");
   const top3Participacoes = getTop3(playersData, "totalP");
-  const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
     getPlayerData().then((data) => {
       setPlayers(data);
+      setInitialPlayers(data);
+      const { years, highestYear } = getHighestYearFromDataset(data);
+      setYearFilter(highestYear);
+      setYearsInDataset(years);
       setLoadingData(false);
     });
   }, []);
+
+  function getHighestYearFromDataset(playersInDataset: Player[]) {
+    const years = Array.from(
+      new Set(
+        playersInDataset.flatMap((person) =>
+          person.matches.map(
+            (match) => match.date.split("/")[2] // Extract the year part
+          )
+        )
+      )
+    );
+
+    return {
+      years: years,
+      highestYear: String(years.sort()[0]),
+    };
+  }
+
+  function handleYearFilterChange(event: any) {
+    const selectedYear = event.target.value;
+
+    const filteredPlayerByYear = initialPlayers.map((player) => ({
+      ...player,
+      matches: player.matches.filter(
+        (match) => match.date.split("/")[2] === selectedYear
+      ),
+    }));
+    setYearFilter(selectedYear);
+    setPlayers(filteredPlayerByYear);
+  }
 
   const columns: GridColDef[] = [
     {
@@ -130,6 +167,13 @@ function GeneralStats() {
       <Typography variant="h3" gutterBottom>
         Data Fut - Deportivo BCC
       </Typography>
+      <Select value={yearFilter} onChange={handleYearFilterChange}>
+        {yearsInDataset.map((year) => (
+          <MenuItem key={year} value={year}>
+            {year}
+          </MenuItem>
+        ))}
+      </Select>
       <Grid2
         container
         display="flex"
